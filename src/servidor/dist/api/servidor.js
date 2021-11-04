@@ -27,6 +27,7 @@ class Servidor {
     }
     inicializarRutas() {
         this.app.use('/api/v1/autenticacion', autenticacion_1.default);
+        this.app.use('/api/v1/superadministradores', autenticacion_1.default);
     }
     inicializarServidor() {
         return __awaiter(this, void 0, void 0, function* () {
