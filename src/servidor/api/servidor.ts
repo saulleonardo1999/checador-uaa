@@ -2,6 +2,7 @@ import  express from 'express';
 import  http from 'http';
 import { OPCIONES, PUERTO_SERVIDOR } from '../config/globales';
 import autenticacionRutas from './componentes/rutas/autenticacion';
+import superadministrdorRutas from './componentes/rutas/superadministrador';
 export default class Servidor {
     private static _instance: Servidor;
     public app: express.Application;
@@ -18,7 +19,7 @@ export default class Servidor {
 
     private inicializarRutas(){
         this.app.use('/api/v1/autenticacion', autenticacionRutas);
-        this.app.use('/api/v1/superadministradores', autenticacionRutas);
+        this.app.use('/api/v1/superadministradores', superadministrdorRutas);
     }
     public async inicializarServidor(){
         this.inicializarRutas();

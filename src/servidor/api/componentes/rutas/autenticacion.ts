@@ -3,11 +3,8 @@ import *  as AutenticacionCtrl from '../controladores/autenticacion';
 const autenticacionRutas = Router();
 
 
-/**GET */
-autenticacionRutas.get('/usuario', );
-
 /**POST */
-autenticacionRutas.post('/usuario', );
+autenticacionRutas.post('/superadministrador', AutenticacionCtrl.obtenerInicioSesionSuperAdministrador);
 
 
 
