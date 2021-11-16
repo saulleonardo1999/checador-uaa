@@ -13,8 +13,8 @@ export let obtenerInicioSesionSuperAdministrador = (req: Request, res: Response)
 }
 
 async function _obtenerIncioSesionSuperAdministrador(req: Request, res: Response) {
-  const correo = req.body.correo;
-  const password = req.body.password;
+  const correo = String(req.body.correo);
+  const password = String(req.body.password);
   SuperAdministrador
     .findOne({ correo: correo })
     .exec(async (err, admin) => {
@@ -25,9 +25,11 @@ async function _obtenerIncioSesionSuperAdministrador(req: Request, res: Response
         let administrador: ISuperAdministrador = admin;
         const matchPassword:boolean = await compararPassword(password, administrador.password); 
         if (matchPassword) {
-          res.locals.token = obtenerToken(administrador);
+          let token:string  = await obtenerToken(administrador);
+          console.log(token);
+          res.locals.token = token;
           res.locals.superAdministrador = administrador;
-          res.status(201).json({ Titulo: "Inicio de sesión exitosa" , Descripción : "Tienes autorización para ingresar" })
+          res.status(201).json({"token": `${token}`})
         } else {
           res.status(403).json({ Titulo: "Inicio de sesión Fallida", Descripción: "Tus credenciales son inválidas" })
         }
