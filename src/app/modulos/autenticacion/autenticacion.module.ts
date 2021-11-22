@@ -10,6 +10,8 @@ import { AutenticacionEmpleadoComponent } from './autenticacion-empleado/autenti
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {MatMenuModule} from '@angular/material/menu';
+import { BrowserModule } from '@angular/platform-browser';
 @NgModule({
   declarations: [
     AutenticacionSuperadministradorComponent,
@@ -17,6 +19,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     AutenticacionEmpleadoComponent
   ],
   imports: [
+    // BrowserModule,
     CommonModule,
     AutenticacionRoutingModule,
     MatSidenavModule,
@@ -25,7 +28,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatInputModule,
     MatFormFieldModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    MatMenuModule,
   ],
 })
 export class AutenticacionModule { }

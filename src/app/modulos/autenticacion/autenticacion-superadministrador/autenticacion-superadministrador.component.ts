@@ -1,7 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AutenticacionService } from 'src/app/servicios/Autenticacion.service';
+import { Router } from '@angular/router';
+import { AutenticacionService } from 'src/app/servicios/autenticacion/Autenticacion.service';
 
 @Component({
   selector: 'app-autenticacion-superadministrador',
@@ -15,7 +16,8 @@ export class AutenticacionSuperadministradorComponent implements OnInit {
   passwordValida: boolean = true;
   constructor(
     private _autenticacionService: AutenticacionService,
-    private _formBuilder: FormBuilder
+    private _formBuilder: FormBuilder,
+    private router: Router
   ) {
 
   }
@@ -37,6 +39,7 @@ export class AutenticacionSuperadministradorComponent implements OnInit {
       this._autenticacionService.iniciarSesionAdministrador(correo, password).subscribe(
         (token: any) => {
           this._credencialesValidas();
+          this.router.navigate(['/superadministrador'])
           resolve(null);
         }, (err: HttpErrorResponse) => {
           console.log(err.status);

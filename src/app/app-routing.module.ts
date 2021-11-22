@@ -9,6 +9,10 @@ const routes: Routes = [
     loadChildren: ()=> import('./modulos/autenticacion/autenticacion.module').then(m =>m.AutenticacionModule)
   },
   {
+    path: 'superadministrador',
+    loadChildren: ()=> import('./modulos/superadministrador/superadministrador.module').then(m =>m.SuperadministradorModule)
+  },
+  {
     path: '**',
     redirectTo: 'login',
     pathMatch: 'full'

@@ -1,0 +1,42 @@
+.icon-display{
+    transform: scale(2)
+}
+.white-icon {
+    color: white;
+}
+$whiteColor: white;
+$d55Color: #f3ca41;
+
+.example-container{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  
+  .sidenav{
+    background-color: $d55Color;
+
+    .toolbar{
+      color: black;
+      background-color: $whiteColor;
+      display: flex;
+      justify-content: center;
+    }
+
+    /*
+    * Navigation
+    */
+    .mat-list-item a{
+      color: black;
+      text-decoration: none;
+    }
+  }
+
+  .mat-sidenav-content{
+    .toolbar{
+      color: $whiteColor;
+      background-color: $d55Color;
+    }
+  }
+}
