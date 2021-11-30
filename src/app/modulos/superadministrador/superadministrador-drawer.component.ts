@@ -10,11 +10,11 @@ export class SuperadministradorDrawerComponent implements OnInit {
   links = [
     {
       name: "Empresas",
-      url: "empresa"
+      url: "empresas"
     },
     {
       name: "Suscripción",
-      url: "suscripcion"
+      url: "suscripciones"
     },
     {
       name: "Otros",

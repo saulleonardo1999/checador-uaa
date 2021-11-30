@@ -12,7 +12,6 @@ export let editarSuperAdministrador = (req: Request, res: Response) => {
     _editarSuperAdministrador(req, res)
 }
 export let eliminarSuperAdministrador = (req: Request, res: Response) => {
-    console.log("Hole")
     _eliminarSuperAdministrador(req, res)
 }
 
@@ -52,8 +51,6 @@ async function _obtenerSuperAdminastradores(req: Request, res: Response) {
 }
 
 async function _editarSuperAdministrador(req: Request, res: Response) {
-    console.log("ADMINISTRACION");
-    console.log(req.body as ISuperAdministrador)
     const admin: ISuperAdministrador = (<ISuperAdministrador>req.body);
     try {
         SuperAdministrador
