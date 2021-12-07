@@ -58,7 +58,7 @@
           <button
             mat-mini-fab
             color=""
-            class="btn btn-primary"
+            class="btn btn-primary m-2"
             [disabled]="!element.estatus"
             (click)="abrirUbicaciones(element)"
           >
@@ -77,7 +77,7 @@
         <div class="row justify-content-start">
           <button
             mat-mini-fab
-            class="btn btn-success"
+            class="btn btn-success m-2"
             color=""
             (click)="reactivarEmpresa(element)"
             *ngIf="!element.estatus"
@@ -86,6 +86,7 @@
           </button>
           <button
             mat-mini-fab
+            class="m-2"
             color="warn"
             (click)="eliminarEmpresa(element)"
             *ngIf="element.estatus"

@@ -23,8 +23,12 @@ import { SuperadministradorEmpresasAltaComponent } from './superadministrador-em
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { SuperadministradorEmpresasUbicacionesComponent } from './superadministrador-empresas/superadministrador-empresas-ubicaciones/superadministrador-empresas-ubicaciones.component';
+import { SuperadministradorAdministradoresComponent } from './superadministrador-administradores/superadministrador-administradores.component';
+import { SuperadministradorAdministradoresAltaComponent } from './superadministrador-administradores/superadministrador-administradores-alta/superadministrador-administradores-alta.component';
+import { SuperadministradorAdministradoresCambioComponent } from './superadministrador-administradores/superadministrador-administradores-cambio/superadministrador-administradores-cambio.component';
+import { MatSelectModule } from '@angular/material/select';
 @NgModule({
-  declarations: [SuperadministradorDrawerComponent, SuperadminsitradorOtrosComponent, SuperadministradorOtrosAltaComponent, SuperadministradorOtrosCambioComponent, SuperadministradorEmpresasComponent, SuperadministradorEmpresasAltaComponent, SuperadministradorEmpresasUbicacionesComponent],
+  declarations: [SuperadministradorDrawerComponent, SuperadminsitradorOtrosComponent, SuperadministradorOtrosAltaComponent, SuperadministradorOtrosCambioComponent, SuperadministradorEmpresasComponent, SuperadministradorEmpresasAltaComponent, SuperadministradorEmpresasUbicacionesComponent, SuperadministradorAdministradoresComponent, SuperadministradorAdministradoresAltaComponent, SuperadministradorAdministradoresCambioComponent],
   imports: [
     CommonModule,
     SuperadministradorRoutingModule,
@@ -33,6 +37,7 @@ import { SuperadministradorEmpresasUbicacionesComponent } from './superadministr
     MatIconModule,
     MatListModule,
     MatButtonModule,
+    MatSelectModule,
     // BrowserModule,
     // AppRoutingModule,
     // BrowserAnimationsModule,

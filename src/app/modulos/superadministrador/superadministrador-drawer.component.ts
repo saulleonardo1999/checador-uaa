@@ -13,6 +13,10 @@ export class SuperadministradorDrawerComponent implements OnInit {
       url: "empresas"
     },
     {
+      name: "Administradores",
+      url: "administradores"
+    },
+    {
       name: "Suscripción",
       url: "suscripciones"
     },

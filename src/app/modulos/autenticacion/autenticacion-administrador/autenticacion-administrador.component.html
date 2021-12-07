@@ -1,1 +1,61 @@
-<p>autenticacion-administrador works!</p>
+<div align="center">
+    <div class="container-fluid">
+      <div class="row mt-1 justify-content-around">
+        <div class="col-3">
+          <img class="w-100" src="../../../../assets/check-in_logo.png" />
+        </div>
+      </div>
+      <div [formGroup]="autenticacionForm" >
+        <div class="row mt-1 justify-content-around">
+          <div class="col-4">
+            <mat-form-field appearance="legacy" class="w-100">
+              <mat-label>Mi correo</mat-label>
+              <input
+                matInput
+                type="text"
+                placeholder="Ingresa tu correo"
+                formControlName="correo"
+              />
+              <!-- <mat-error *ngIf="getAutenticacionFormCorreo.errors?.required">
+                Se debe llenar este campo
+              </mat-error> -->
+              <mat-error *ngIf="!correoValido">
+                El correo introducido es inválido
+              </mat-error>
+              
+            </mat-form-field>
+          </div>
+        </div>
+        <br>
+        <div class="row mt-1 justify-content-around">
+          <div class="col-4">
+            <mat-form-field class="w-100">
+              <mat-label>Mi contraseña</mat-label>
+              <input
+                matInput
+                type="password"
+                placeholder="Ingresa tu contraseña"
+                formControlName="password"
+              />
+              <mat-error *ngIf="getAutenticacionFormPassword.errors?.required">
+                Se debe llenar este campo
+              </mat-error>
+              <mat-error *ngIf="!passwordValida">
+                La contraseña introducida es incorrecta
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <br /><br />
+        <div class="row mt-1 justify-content-around">
+          <div class="col-4">
+            <button type="button" (click)="_validarCredenciales()" class="btn btn-outline-warning w-100">
+              Iniciar Sesión
+            </button>
+          </div>
+        </div>
+        <br />
+      </div>
+    </div>
+  </div>
+  

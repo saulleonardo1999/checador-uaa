@@ -10,12 +10,36 @@ import { AjustesAplicacion } from '../../configuraciones/ajustes-aplicacion';
 export class AutenticacionService {
 
   constructor(private httpClient: HttpClient) { }
-  public iniciarSesionAdministrador(correo:string, password:string): Observable<any> {
+  public iniciarSesionSuperAdministrador(correo:string, password:string): Observable<any> {
     const credenciales = {
       correo: correo,
       password: password
     }
     return this.httpClient.post(AjustesAplicacion.APIEndpoint + 'autenticacion/superadministrador', credenciales, AjustesAplicacion.Opciones).pipe(
+      map((result: any) => {
+        if(result)
+          this.guardarToken(result["token"])
+      })
+    );
+  }
+  public iniciarSesionAdministrador(correo:string, password:string): Observable<any> {
+    const credenciales = {
+      correo: correo,
+      password: password
+    }
+    return this.httpClient.post(AjustesAplicacion.APIEndpoint + 'autenticacion/administrador', credenciales, AjustesAplicacion.Opciones).pipe(
+      map((result: any) => {
+        if(result)
+          this.guardarToken(result["token"])
+      })
+    );
+  }
+  public iniciarSesionEmpleado(correo:string, password:string): Observable<any> {
+    const credenciales = {
+      correo: correo,
+      password: password
+    }
+    return this.httpClient.post(AjustesAplicacion.APIEndpoint + 'autenticacion/empleado', credenciales, AjustesAplicacion.Opciones).pipe(
       map((result: any) => {
         if(result)
           this.guardarToken(result["token"])
