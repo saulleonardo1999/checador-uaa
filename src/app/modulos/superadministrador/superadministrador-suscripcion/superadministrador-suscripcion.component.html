@@ -1,0 +1,140 @@
+<div class="mt-5" align="center">
+  <div class="w-75">
+    <div class="row mt-1 justify-content-between align-items-end">
+      <div class="col-8">
+        <mat-form-field appearance="legacy" class="w-100">
+          <mat-label>Buscar Empresa</mat-label>
+          <input
+            matInput
+            type="text"
+            placeholder="Busca Empresa"
+            [formControl]="buscadorForm"
+          />
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+      </div>
+      <div class="col-3 mb-3">
+        <button
+          class="w-100 btn-success"
+          (click)="agregarSuscripcion()"
+          mat-raised-button
+        >
+          <span>Agregar</span>
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+  <table
+    mat-table
+    [dataSource]="dataSource"
+    class="mat-elevation-z8 w-75"
+    appearance="legacy"
+  >
+    <!-- No. Elemento-->
+    <ng-container matColumnDef="No.">
+      <th mat-header-cell *matHeaderCellDef>No.</th>
+      <td mat-cell *matCellDef="let element">
+        {{ obtenerIndiceTabla(element) + 1 }}
+      </td>
+    </ng-container>
+
+    <!-- Fecha Inicio -->
+    <ng-container matColumnDef="Fecha de Inicio">
+      <th mat-header-cell *matHeaderCellDef>Fecha de Inicio</th>
+      <td mat-cell *matCellDef="let element">{{ element.fechaInicio | date:'shortDate' }}</td>
+    </ng-container>
+
+    <!-- Fecha Final -->
+    <ng-container matColumnDef="Fecha Final">
+      <th mat-header-cell *matHeaderCellDef>Fecha Final</th>
+      <td mat-cell *matCellDef="let element">{{ element.fechaFinal | date:'shortDate' }}</td>
+    </ng-container>
+
+    <!-- Estado de Pago -->
+    <ng-container matColumnDef="Estado de Pago">
+      <th mat-header-cell *matHeaderCellDef>Estado de Pago</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.estadoPago ? "Pagado" : "Sin Pagar" }}
+      </td>
+    </ng-container>
+
+    <!-- Tipo de Suscripción -->
+    <ng-container matColumnDef="Tipo">
+      <th mat-header-cell *matHeaderCellDef>Tipo de Suscripción</th>
+      <td mat-cell *matCellDef="let element">{{ element.tipo ? "Mensual" : "Anual" }}</td>
+    </ng-container>
+
+
+    <!-- Empresa -->
+    <ng-container matColumnDef="Empresa">
+      <th mat-header-cell *matHeaderCellDef>Tipo de Suscripción</th>
+      <td mat-cell *matCellDef="let element">{{ element._idEmpresa.nombre }}</td>
+    </ng-container>
+
+    <!-- Botones opciones -->
+    <ng-container matColumnDef="Opciones">
+      <th mat-header-cell *matHeaderCellDef>Opciones</th>
+      <td mat-cell *matCellDef="let element">
+        <div class="container-fluid">
+          <div class="row justify-content-start">
+            <button
+              color=""
+              class="btn btn-primary m-2"
+              mat-mini-fab
+              (click)="modificarSuscripcion(element)"
+            >
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button
+              mat-mini-fab
+              class="btn btn-success m-2"
+              color=""
+              (click)="modificarEstadoPagoSuscripcion(element)"
+              *ngIf="!element.estadoPago"
+            >
+              <mat-icon>published_with_changes</mat-icon>
+            </button>
+            <button
+              mat-mini-fab
+              class="m-2"
+              color="warn"
+              (click)="modificarEstadoPagoSuscripcion(element)"
+              *ngIf="element.estadoPago"
+            >
+              <mat-icon>delete_forever</mat-icon>
+            </button>
+          </div>
+        </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+    <tr mat-row *matRowDef="let row; columns: columnas"></tr>
+  </table>
+  <div class="w-75">
+    <div class="row mt-1 justify-content-between align-items-end">
+      
+      <div class="col-6 mb-3">
+        <button
+          class="w-100 btn-primary"
+          (click)="exportToExcel()"
+          mat-raised-button
+        >
+          <span>Generar Reporte</span>
+          <mat-icon>assignment</mat-icon>
+        </button>
+      </div>
+      <div class="col-6 mb-3">
+        <button
+          class="w-100 btn-success"
+          (click)="verGrafica()"
+          mat-raised-button
+        >
+          <span>Ver Gráfica</span>
+          <mat-icon>analytics</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { SuperadministradorAdministradoresComponent } from './superadministrador-administradores/superadministrador-administradores.component';
 import { SuperadministradorDrawerComponent } from './superadministrador-drawer.component';
 import { SuperadministradorEmpresasComponent } from './superadministrador-empresas/superadministrador-empresas.component';
+import { SuperadministradorSuscripcionComponent } from './superadministrador-suscripcion/superadministrador-suscripcion.component';
 import { SuperadminsitradorOtrosComponent } from './superadminsitrador-otros/superadminsitrador-otros.component';
 
 
@@ -24,8 +25,12 @@ const routes: Routes = [
         component: SuperadministradorAdministradoresComponent
       },
       {
+        path: 'suscripcion',
+        component: SuperadministradorSuscripcionComponent
+      },
+      {
         path: '**',
-        redirectTo: '',
+        redirectTo: 'empresas',
         pathMatch: 'full'
       },
     ]

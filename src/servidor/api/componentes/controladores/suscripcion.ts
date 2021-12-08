@@ -10,6 +10,9 @@ export let obtenerSuscripciones = (req: Request, res: Response) => {
 export let obtenerSuscripcionesPorEmpresa = (req: Request, res: Response) => {
     _obtenerSuscripcionesPorEmpresa(req, res)
 }
+export let editarSuscripcion = (req: Request, res: Response) => {
+    _editarSuscripcion(req, res)
+}
 
 async function _crearSuscripcion(sub: ISuscripcion, res: Response) {
     try {
@@ -57,6 +60,29 @@ async function _obtenerSuscripcionesPorEmpresa(req: Request, res: Response) {
             })
     } catch (error: any) {
         return res.status(422).send({ titulo: 'Error al obtener la lista', detalles: "Ocurrió un error al obtener la lista, intente por favor más tarde" });
+
+    }
+}
+
+
+async function _editarSuscripcion(req: Request, res: Response) {
+    const sub: ISuscripcion = (<ISuscripcion>req.body);
+    try {
+        Suscripcion
+            .findByIdAndUpdate({_id: sub._id}, sub)
+            .exec((err: any, supAdmin: any) => {
+                console.log(err, supAdmin);
+                if (err) {
+                    console.log(err);
+                    return res.status(422).send({ titulo: 'Error al editar', detalles: "Ocurrió un error al editar, intente por favor más tarde" });
+                } else if (supAdmin) {
+                    console.log(supAdmin);
+                    return res.status(200).json(supAdmin);
+                }
+            })
+    } catch (error: any) {
+        console.log(error);
+        return res.status(422).send({ titulo: 'Error al editar', detalles: "Ocurrió un error al editar, intente por favor más tarde" });
 
     }
 }

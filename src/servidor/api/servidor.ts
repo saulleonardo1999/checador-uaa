@@ -30,14 +30,14 @@ export default class Servidor {
 
     private inicializarRutas(){
         this.app.use('/api/v1/autenticacion', autenticacionRutas);
-        this.app.use('/api/v1/superadministradores', superadministrdorRutas);
+        this.app.use('/api/v1/superadministrador', superadministrdorRutas);
         this.app.use('/api/v1/codigo-postal', codigoPostalRutas);
         this.app.use('/api/v1/colonia', coloniaRutas);
         this.app.use('/api/v1/empresa', empresaRutas);
         this.app.use('/api/v1/administrador', administrdorRutas);
         this.app.use('/api/v1/empleado', empleadoRutas);
         this.app.use('/api/v1/horario', horarioRutas);
-        this.app.use('/api/v1/suscripciones', suscripcionRutas);
+        this.app.use('/api/v1/suscripcion', suscripcionRutas);
         this.app.use('/api/v1/registro-entrada', registroEntradaRutas);
         this.app.use('/api/v1/registro-salida', registroSalidaRutas);
         this.app.use('/api/v1/horario-trabajado', horarioTrabajadoRutas);

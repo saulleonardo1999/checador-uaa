@@ -18,7 +18,7 @@ export class SuperadministradorDrawerComponent implements OnInit {
     },
     {
       name: "Suscripción",
-      url: "suscripciones"
+      url: "suscripcion"
     },
     {
       name: "Otros",

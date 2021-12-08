@@ -8,19 +8,19 @@ import { Superadministrador } from 'src/app/modelos/superadministrador.model';
   providedIn: 'root'
 })
 export class SuperadministradorService {
-
+  ruta:string = "superadministrador";
   constructor(private httpClient: HttpClient) { }
 
   public guardarSuperAdministrador(superAd: Superadministrador): Observable<any>{
-    return this.httpClient.post(AjustesAplicacion.APIEndpoint + 'superadministradores', superAd, AjustesAplicacion.Opciones);
+    return this.httpClient.post(AjustesAplicacion.APIEndpoint + this.ruta, superAd, AjustesAplicacion.Opciones);
   }
   public obtenerListaSuperAdministradores(): Observable<any>{
-    return this.httpClient.get(AjustesAplicacion.APIEndpoint + 'superadministradores', AjustesAplicacion.Opciones);
+    return this.httpClient.get(AjustesAplicacion.APIEndpoint + this.ruta, AjustesAplicacion.Opciones);
   }
   public editarSuperAdministrador(superAd: Superadministrador): Observable<any>{
-    return this.httpClient.put(AjustesAplicacion.APIEndpoint + 'superadministradores',superAd, AjustesAplicacion.Opciones);
+    return this.httpClient.put(AjustesAplicacion.APIEndpoint + this.ruta,superAd, AjustesAplicacion.Opciones);
   }
   public eliminarSuperAdministrador(superAd: Superadministrador): Observable<any>{
-    return this.httpClient.delete(AjustesAplicacion.APIEndpoint + 'superadministradores/' + superAd._id,  AjustesAplicacion.Opciones);
+    return this.httpClient.delete(AjustesAplicacion.APIEndpoint + this.ruta + "/" + superAd._id,  AjustesAplicacion.Opciones);
   }
 }

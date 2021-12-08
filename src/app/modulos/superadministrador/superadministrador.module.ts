@@ -20,16 +20,24 @@ import { SuperadministradorOtrosCambioComponent } from './superadminsitrador-otr
 import { SuperadministradorEmpresasComponent } from './superadministrador-empresas/superadministrador-empresas.component';
 import { AgmCoreModule } from '@agm/core';
 import { SuperadministradorEmpresasAltaComponent } from './superadministrador-empresas/superadministrador-empresas-alta/superadministrador-empresas-alta.component';
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SuperadministradorEmpresasUbicacionesComponent } from './superadministrador-empresas/superadministrador-empresas-ubicaciones/superadministrador-empresas-ubicaciones.component';
 import { SuperadministradorAdministradoresComponent } from './superadministrador-administradores/superadministrador-administradores.component';
 import { SuperadministradorAdministradoresAltaComponent } from './superadministrador-administradores/superadministrador-administradores-alta/superadministrador-administradores-alta.component';
 import { SuperadministradorAdministradoresCambioComponent } from './superadministrador-administradores/superadministrador-administradores-cambio/superadministrador-administradores-cambio.component';
 import { MatSelectModule } from '@angular/material/select';
+import { SuperadministradorSuscripcionComponent } from './superadministrador-suscripcion/superadministrador-suscripcion.component';
+import { SuperadministradorSuscripcionAltaComponent } from './superadministrador-suscripcion/superadministrador-suscripcion-alta/superadministrador-suscripcion-alta.component';
+import { SuperadministradorSuscripcionCambioComponent } from './superadministrador-suscripcion/superadministrador-suscripcion-cambio/superadministrador-suscripcion-cambio.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { ChartsModule } from 'ng2-charts';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 @NgModule({
-  declarations: [SuperadministradorDrawerComponent, SuperadminsitradorOtrosComponent, SuperadministradorOtrosAltaComponent, SuperadministradorOtrosCambioComponent, SuperadministradorEmpresasComponent, SuperadministradorEmpresasAltaComponent, SuperadministradorEmpresasUbicacionesComponent, SuperadministradorAdministradoresComponent, SuperadministradorAdministradoresAltaComponent, SuperadministradorAdministradoresCambioComponent],
+  declarations: [SuperadministradorDrawerComponent, SuperadminsitradorOtrosComponent, SuperadministradorOtrosAltaComponent, SuperadministradorOtrosCambioComponent, SuperadministradorEmpresasComponent, SuperadministradorEmpresasAltaComponent, SuperadministradorEmpresasUbicacionesComponent, SuperadministradorAdministradoresComponent, SuperadministradorAdministradoresAltaComponent, SuperadministradorAdministradoresCambioComponent, SuperadministradorSuscripcionComponent, SuperadministradorSuscripcionAltaComponent, SuperadministradorSuscripcionCambioComponent],
   imports: [
+    NgxChartsModule,
     CommonModule,
     SuperadministradorRoutingModule,
     MatSidenavModule,
@@ -38,10 +46,8 @@ import { MatSelectModule } from '@angular/material/select';
     MatListModule,
     MatButtonModule,
     MatSelectModule,
-    // BrowserModule,
-    // AppRoutingModule,
-    // BrowserAnimationsModule,
     MatToolbarModule,
+    MatDatepickerModule,
     MatSidenavModule,
     MatMenuModule,
     MatTableModule,
@@ -52,6 +58,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatDialogModule,
     MatAutocompleteModule,
     MatProgressSpinnerModule,
+    MatNativeDateModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBKqQundPuHZAI1GFKKo9xpuxPa3QNI97k'
     }),
