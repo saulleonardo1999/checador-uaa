@@ -74,10 +74,9 @@ export class AdministradorEmpleadosComponent implements OnInit {
   private _obtenerEmpleados() {
     return new Promise((resolve, reject) => {
       this._serEmpleados.obtenerListaEmpleados().subscribe(
-        (admins: Empleado[]) => {
-          console.log(admins);
-          this.dataSource = admins;
-          this.empleados = admins;
+        (empleado: Empleado[]) => {
+          this.dataSource = empleado;
+          this.empleados = empleado;
           resolve(null);
         }, (err: HttpErrorResponse) => {
           reject();

@@ -23,7 +23,7 @@ const routes: Routes = [
       },
       {
         path: '**',
-        redirectTo: 'empleado',
+        redirectTo: 'administrador',
         pathMatch: 'full'
       },
     ]
