@@ -130,5 +130,8 @@
       }
     }
   },
-  "defaultProject": "checador-uaa"
+  "defaultProject": "checador-uaa",
+  "cli": {
+    "analytics": "4ef02108-50d4-409e-bfea-3c357ba98828"
+  }
 }

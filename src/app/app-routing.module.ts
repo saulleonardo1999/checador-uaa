@@ -13,6 +13,14 @@ const routes: Routes = [
     loadChildren: ()=> import('./modulos/superadministrador/superadministrador.module').then(m =>m.SuperadministradorModule)
   },
   {
+    path: 'administrador',
+    loadChildren: ()=> import('./modulos/administrador/administrador.module').then(m =>m.AdministradorModule)
+  },
+  {
+    path: 'empleado',
+    loadChildren: ()=> import('./modulos/empleado/empleado.module').then(m =>m.EmpleadoModule)
+  },
+  {
     path: '**',
     redirectTo: 'login',
     pathMatch: 'full'
