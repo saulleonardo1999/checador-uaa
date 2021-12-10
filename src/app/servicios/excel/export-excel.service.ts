@@ -38,7 +38,7 @@ export class ExportExcelService {
     // Date
     worksheet.mergeCells('G1:H4');
     let d = new Date();
-    let date = d.getDate() + '-' + d.getMonth() + '-' + d.getFullYear();
+    let date = d.getDate() + '-' + (d.getMonth()+1) + '-' + d.getFullYear();
     let dateCell = worksheet.getCell('G1');
     dateCell.value = date;
     dateCell.font = {
@@ -91,10 +91,11 @@ export class ExportExcelService {
     worksheet.getColumn(4).width = 25;
     worksheet.getColumn(5).width = 25;
     worksheet.getColumn(6).width = 20;
+    worksheet.getColumn(7).width = 25;
     worksheet.addRow([]);
 
     //Footer Row
-    let footerRow = worksheet.addRow(['Reporte de Suscripción de empresas del  ' + date]);
+    let footerRow = worksheet.addRow(['Reporte del  ' + date]);
     footerRow.getCell(1).fill = {
       type: 'pattern',
       pattern: 'solid',
