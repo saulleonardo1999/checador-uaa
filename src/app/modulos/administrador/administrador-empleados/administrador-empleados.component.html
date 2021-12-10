@@ -1,0 +1,108 @@
+<div class="mt-5" align="center">
+    <div class="w-75">
+      <div class="row mt-1 justify-content-between align-items-end">
+        <div class="col-8">
+          <mat-form-field appearance="legacy" class="w-100">
+            <mat-label>Buscar empleados</mat-label>
+            <input
+              matInput
+              type="text"
+              placeholder="Busca empleados"
+              [formControl]="buscadorForm"
+            />
+            <mat-icon matSuffix>search</mat-icon>
+          </mat-form-field>
+        </div>
+        <div class="col-3 mb-3">
+          <button
+            class="w-100 btn-success"
+            (click)="agregarEmpleado()"
+            mat-raised-button
+          >
+            <span>Agregar</span>
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+    <table
+      mat-table
+      [dataSource]="dataSource"
+      class="mat-elevation-z8 w-75"
+      appearance="legacy"
+    >
+      <!-- No. Elemento-->
+      <ng-container matColumnDef="No.">
+        <th mat-header-cell *matHeaderCellDef>No.</th>
+        <td mat-cell *matCellDef="let element">
+          {{ obtenerIndiceTabla(element) + 1 }}
+        </td>
+      </ng-container>
+  
+      <!-- Nombre -->
+      <ng-container matColumnDef="Nombre">
+        <th mat-header-cell *matHeaderCellDef>Nombre</th>
+        <td mat-cell *matCellDef="let element">{{ element.nombre }}</td>
+      </ng-container>
+  
+      <!-- Apellido Materno -->
+      <ng-container matColumnDef="Apellido Materno">
+        <th mat-header-cell *matHeaderCellDef>Apellido Materno</th>
+        <td mat-cell *matCellDef="let element">{{ element.apellidoMaterno }}</td>
+      </ng-container>
+  
+      <!-- Apellido Paterno -->
+      <ng-container matColumnDef="Apellido Paterno">
+        <th mat-header-cell *matHeaderCellDef>Apellido Paterno</th>
+        <td mat-cell *matCellDef="let element">{{ element.apellidoPaterno }}</td>
+      </ng-container>
+  
+      <!-- Correo -->
+      <ng-container matColumnDef="Correo">
+        <th mat-header-cell *matHeaderCellDef>Correo</th>
+        <td mat-cell *matCellDef="let element">{{ element.correo }}</td>
+      </ng-container>
+  
+      <!-- Empresa -->
+      <ng-container matColumnDef="Empresa">
+        <th mat-header-cell *matHeaderCellDef>Empresa</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element._idEmpresa.nombre }}
+        </td>
+      </ng-container>
+  
+      <!-- Botones opciones -->
+      <ng-container matColumnDef="Opciones">
+        <th mat-header-cell *matHeaderCellDef>Opciones</th>
+        <td mat-cell *matCellDef="let element">
+          <div class="container-fluid">
+            <div class="row justify-content-start">
+              <button
+                class="m-2"
+                mat-mini-fab
+                class="btn btn-success"
+                color=""
+                (click)="activarDesactivarEmpleado(element)"
+                *ngIf="!element.estatus"
+              >
+                <mat-icon>published_with_changes</mat-icon>
+              </button>
+              <button
+                class="m-2"
+                mat-mini-fab
+                color="warn"
+                (click)="activarDesactivarEmpleado(element)"
+                *ngIf="element.estatus"
+              >
+                <mat-icon>delete_forever</mat-icon>
+              </button>
+            </div>
+          </div>
+        </td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+      <tr mat-row *matRowDef="let row; columns: columnas"></tr>
+    </table>
+  </div>
+  

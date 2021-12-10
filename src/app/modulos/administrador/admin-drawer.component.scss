@@ -5,7 +5,7 @@
     color: white;
 }
 $whiteColor: white;
-$d55Color: #00565d;
+$d55Color: bisque;
 
 .example-container{
   position: absolute;
@@ -18,7 +18,7 @@ $d55Color: #00565d;
     background-color: $d55Color;
 
     .toolbar{
-      color: rgb(0, 69, 97);
+      color: black;
       background-color: $whiteColor;
       display: flex;
       justify-content: center;
@@ -28,7 +28,7 @@ $d55Color: #00565d;
     * Navigation
     */
     .mat-list-item a{
-      color: rgb(255, 255, 255);
+      color: black;
       text-decoration: none;
     }
   }
