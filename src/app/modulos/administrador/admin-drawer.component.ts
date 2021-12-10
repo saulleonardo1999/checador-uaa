@@ -11,6 +11,10 @@ export class AdminDrawerComponent implements OnInit {
     {
       name: "Empleados",
       url: "empresas"
+    },
+    {
+      name: "Horario",
+      url: "horario"
     }
   ]
   constructor() { }

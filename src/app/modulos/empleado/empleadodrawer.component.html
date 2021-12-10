@@ -1,6 +1,6 @@
 <mat-sidenav-container class="example-container">
     <mat-sidenav #sidenav mode="side" class="sidenav">
-      <mat-toolbar class="toolbar">Adminitrador</mat-toolbar>
+      <mat-toolbar class="toolbar">Empleado</mat-toolbar>
       <mat-list>
         <mat-list-item *ngFor="let item of links">
           <a matLine [routerLink]="item.url">{{ item.name }}</a>
@@ -9,7 +9,7 @@
     </mat-sidenav>
   
     <mat-sidenav-content>
-      <mat-toolbar style="background-color: bisque;">
+      <mat-toolbar style="background-color: rgb(218, 136, 134);">
         <mat-toolbar-row>
           <mat-icon
             class="m-2"

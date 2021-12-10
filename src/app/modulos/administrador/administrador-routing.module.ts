@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AdministradorEmpleadosComponent } from './administrador-empleados/administrador-empleados.component';
+import { AdministradorHorarioComponent } from './administrador-horario/administrador-horario.component';
 import { AdminDrawerComponent } from './admin-drawer.component';
 const routes: Routes = [
   {
@@ -10,6 +11,10 @@ const routes: Routes = [
       {
         path: 'empleados',
         component: AdministradorEmpleadosComponent
+      },
+      {
+        path: 'horario',
+        component: AdministradorHorarioComponent
       },
       {
         path: '**',

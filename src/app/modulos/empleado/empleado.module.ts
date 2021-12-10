@@ -1,8 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AdministradorRoutingModule } from './administrador-routing.module';
-import { AdministradorEmpleadosComponent } from './administrador-empleados/administrador-empleados.component';
-import { AdministradorEmpleadosAltaComponent } from './administrador-empleados/administrador-empleados-alta/administrador-empleados-alta.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -22,14 +19,16 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { ChartsModule } from 'ng2-charts';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
-import { AdminDrawerComponent } from './admin-drawer.component';
-import { AdministradorHorarioComponent } from './administrador-horario/administrador-horario.component';
+import { EmpleadoRoutingModule } from './empleado-routing.module';
+import { EmpleadodrawerComponent } from './empleadodrawer.component';
+
+
 
 @NgModule({
-  declarations: [AdministradorEmpleadosComponent, AdministradorEmpleadosAltaComponent, AdminDrawerComponent, AdministradorHorarioComponent],
+  declarations: [EmpleadodrawerComponent],
   imports: [
     CommonModule,
-    AdministradorRoutingModule,
+    EmpleadoRoutingModule,
     NgxChartsModule,
     MatSidenavModule,
     MatToolbarModule,
@@ -55,4 +54,4 @@ import { AdministradorHorarioComponent } from './administrador-horario/administr
     }),
   ]
 })
-export class AdministradorModule { }
+export class EmpleadoModule { }
