@@ -12,6 +12,8 @@ import { EmpresaService } from 'src/app/servicios/empresa/empresa.service';
 import { SuperadministradorEmpresasAltaComponent } from './superadministrador-empresas-alta/superadministrador-empresas-alta.component';
 import { Empresa } from 'src/app/modelos/empresa.model';
 import { SuperadministradorEmpresasUbicacionesComponent } from './superadministrador-empresas-ubicaciones/superadministrador-empresas-ubicaciones.component';
+import { ExportExcelService } from 'src/app/servicios/excel/export-excel.service';
+import * as moment from 'moment';
 @Component({
   selector: 'app-superadministrador-empresas',
   templateUrl: './superadministrador-empresas.component.html',
@@ -21,6 +23,8 @@ import { SuperadministradorEmpresasUbicacionesComponent } from './superadministr
 export class SuperadministradorEmpresasComponent implements OnInit {
   empresas: Empresa[];
   nombre: string;
+  dataForExcel = [];
+
   buscadorForm: FormControl;
   isLoading: boolean = false;
   i: number = 0;
@@ -29,6 +33,7 @@ export class SuperadministradorEmpresasComponent implements OnInit {
   constructor(
     private _serEmpresas: EmpresaService,
     private _formBuilder: FormBuilder,
+    public ete: ExportExcelService,
     public dialog: MatDialog
   ) {
     this.empresas = [];
@@ -147,5 +152,31 @@ export class SuperadministradorEmpresasComponent implements OnInit {
   //     )
   //   })
   // }
+  exportToExcel() {
+    let arr = [];
+    this.empresas.forEach(sub => {
+      let ob = {
+        Identificador: sub._id,
+        "Nombre": sub.nombre,
+        "Estatus": sub.estatus ? "Activa" : "Inactiva",
+        "Código Postal": sub.ubicaciones[0]._idCodigoPostal.c_CodigoPostal,
+        "Calle": sub.ubicaciones[0].calle,
+        "No. Exterior": sub.ubicaciones[0].numeroExterior,
+        "No. Interior": sub.ubicaciones[0].numeroInterior ? sub.ubicaciones[0].numeroInterior : ""
+      }
+      arr.push(ob);
+    })
 
+    arr.forEach((row: any) => {
+      this.dataForExcel.push(Object.values(row))
+    })
+
+    let reportData = {
+      title: `Empresas - ${moment(Date.now()).format("DD/MM/YYYY")}`,
+      data: this.dataForExcel,
+      headers: Object.keys(arr[0])
+    }
+
+    this.ete.exportExcel(reportData);
+  }
 }
