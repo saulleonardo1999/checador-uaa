@@ -16,12 +16,12 @@
         </div>
         <div class="col-lg-6 col-sm-6">
           <mat-form-field class="w-100" appearance="legacy">
-            <mat-label>Código Postal</mat-label>
+            <mat-label>Apellido Paterno</mat-label>
             <input
               matInput
-              placeholder="Ingresa el código postal"
+              placeholder="Ingresa el apellido paterno"
+              formControlName="apellidoPaterno"
               required
-              formControlName="codigoPostal"
             />
           </mat-form-field>
         </div>
@@ -29,91 +29,34 @@
       <div class="row mt-1 justify-content-around">
         <div class="col-lg-6 col-sm-6">
           <mat-form-field class="w-100" appearance="legacy">
-            <mat-label>Calle</mat-label>
+            <mat-label>Apellido Materno</mat-label>
             <input
               matInput
-              placeholder="Ingresa la calle"
+              placeholder="Ingresa el apellido materno"
+              formControlName="apellidoMaterno"
               required
-              formControlName="calle"
             />
           </mat-form-field>
         </div>
         <div class="col-lg-6 col-sm-6">
           <mat-form-field class="w-100" appearance="legacy">
-            <mat-label>Colonia</mat-label>
+            <mat-label>RFC</mat-label>
             <input
               matInput
-              placeholder="Ingresa la Colonia"
-              type="text"
+              placeholder="Ingresa el rfc"
+              formControlName="rfc"
               required
-              formControlName="colonia"
-              [matAutocomplete]="auto"
-            />
-          </mat-form-field>
-          <mat-autocomplete
-            #auto="matAutocomplete"
-            [displayWith]="mostrarTextoAutoCompleteColonia"
-          >
-            <mat-option *ngIf="cargando" class="is-loading"
-              ><mat-spinner diameter="30"></mat-spinner
-            ></mat-option>
-            <ng-container *ngIf="!cargando">
-              <mat-option *ngFor="let colonia of colonias" [value]="colonia">
-                <span>{{ colonia.nombre }}</span>
-                <small> | C.P.: {{ colonia.c_CodigoPostal }}</small>
-              </mat-option>
-            </ng-container>
-          </mat-autocomplete>
-        </div>
-      </div>
-      <div class="row mt-1 justify-content-around">
-        <div class="col-lg-6 col-sm-6">
-          <mat-form-field class="w-100" appearance="legacy">
-            <mat-label>Número Exterior</mat-label>
-            <input
-              matInput
-              placeholder="Ingresa el número Exterior"
-              required
-              formControlName="numeroExterior"
-            />
-          </mat-form-field>
-        </div>
-        <div class="col-lg-6 col-sm-6">
-          <mat-form-field class="w-100" appearance="legacy">
-            <mat-label>Número Interior</mat-label>
-            <input
-              matInput
-              placeholder="Ingresa el número interior"
-              formControlName="numeroInterior"
             />
           </mat-form-field>
         </div>
       </div>
     </div>
   </div>
-  <br />
-  <br />
-  <div class="w-100 px-2" style="height: 400px" align="center">
-    <agm-map
-      [latitude]="lat"
-      [zoom]="zoom"
-      [longitude]="lng"
-      (mapClick)="mapClicked($event)"
-      class="w-100 h-100"
-      align="center"
-    >
-      <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
-    </agm-map>
-    <mat-label>{{ currentLocation }}</mat-label>
-  </div>
-
-  <br />
-  <br />
 </div>
 <div mat-dialog-actions>
   <div class="container-fluid">
     <div class="row mt-1 justify-content-around">
-      <div class="col-lg-3 col-sm-6">
+      <div class="col-6">
         <button
           mat-raised-button
           class="btn-block btn-danger mb-1"
@@ -123,7 +66,7 @@
           Cancelar
         </button>
       </div>
-      <div class="col-lg-3 col-sm-6">
+      <div class="col-6">
         <button
           mat-raised-button
           class="btn-block btn-success mb-1"

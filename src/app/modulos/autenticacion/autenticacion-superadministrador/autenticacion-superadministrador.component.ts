@@ -42,26 +42,32 @@ export class AutenticacionSuperadministradorComponent implements OnInit {
     })
   }
   public async _validarCredenciales() {
-    return new Promise((resolve, reject) => {
-      let correo: string = String(this.getAutenticacionFormCorreo.value);
-      let password: string = String(this.getAutenticacionFormPassword.value);
-      this._autenticacionService.iniciarSesionSuperAdministrador(correo, password).subscribe(
-        (token: any) => {
-          this._credencialesValidas();
-          this.router.navigate(['/superadministrador'])
-          resolve(null);
-        }, (err: HttpErrorResponse) => {
-          console.log(err.status);
-          switch (err.status) {
-            case 422:
-            case 403:
-              this.abrirlModalError();
-              break;
+    try {
+      return new Promise((resolve, reject) => {
+        let correo: string = String(this.getAutenticacionFormCorreo.value);
+        let password: string = String(this.getAutenticacionFormPassword.value);
+        this._autenticacionService.iniciarSesionSuperAdministrador(correo, password).subscribe(
+          (token: any) => {
+            console.log("hola");
+            this._credencialesValidas();
+            this.router.navigate(['/superadministrador'])
+            resolve(null);
+          }, (err: HttpErrorResponse) => {
+            console.log(err.status);
+            switch (err.status) {
+              case 422:
+              case 404:
+              case 403:
+                this.abrirlModalError();
+                break;
+            }
+            reject();
           }
-          reject();
-        }
-      );
-    });
+        );
+      });
+    } catch (err) {
+      console.log(err);
+    }
   }
   private _credencialesValidas() {
     this.correoValido = true;

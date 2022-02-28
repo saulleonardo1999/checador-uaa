@@ -3,12 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import * as moment from 'moment';
-import { Suscripcion } from 'src/app/modelos/suscripcion.model';
-import { ExportExcelService } from 'src/app/servicios/excel/export-excel.service';
-import { SuscripcionService } from 'src/app/servicios/suscripcion/suscripcion.service';
+import { Materia } from 'src/app/modelos/materia.model';
+import { MateriaService } from 'src/app/servicios/escuela/materia.service';
 import { SuperadministradorSuscripcionAltaComponent } from './superadministrador-suscripcion-alta/superadministrador-suscripcion-alta.component';
 import { SuperadministradorSuscripcionCambioComponent } from './superadministrador-suscripcion-cambio/superadministrador-suscripcion-cambio.component';
-import { SuperadministradorSuscripcionGraficaComponent } from './superadministrador-suscripcion-grafica/superadministrador-suscripcion-grafica.component';
 
 @Component({
   selector: 'app-superadministrador-suscripcion',
@@ -16,21 +14,20 @@ import { SuperadministradorSuscripcionGraficaComponent } from './superadministra
   styleUrls: ['./superadministrador-suscripcion.component.scss']
 })
 export class SuperadministradorSuscripcionComponent implements OnInit {
-  suscripciones: Suscripcion[];
+  materias: Materia[];
   dataForExcel = [];
   nombre: string;
   buscadorForm: FormControl;
   isLoading: boolean = false;
   i: number = 0;
-  columnas: string[] = ["No.", 'Fecha de Inicio', 'Fecha Final', "Estado de Pago", 'Tipo', 'Empresa', 'Opciones'];
-  dataSource: Suscripcion[];
+  columnas: string[] = ["No.", 'Nombre', 'Código de Materia', "Escolaridad", 'Estatus', 'Opciones'];
+  dataSource: Materia[];
   constructor(
-    private _servicioSuscripcion: SuscripcionService,
+    private _serMaterias: MateriaService,
     private _formBuilder: FormBuilder,
     public dialog: MatDialog,
-    public ete: ExportExcelService
   ) {
-    this.suscripciones = [];
+    this.materias = [];
     this.dataSource = [];
   }
 
@@ -54,16 +51,10 @@ export class SuperadministradorSuscripcionComponent implements OnInit {
       this._obtenerSuscripciones()
     })
   }
-  public verGrafica() {
-    const dialog = this.dialog.open(SuperadministradorSuscripcionGraficaComponent, {
-      width: "80%"
-    }).afterClosed().subscribe(result => {
-    })
-  }
-  public modificarSuscripcion(sub:Suscripcion) {
+  public modificarSuscripcion(materia:Materia) {
     const dialog = this.dialog.open(SuperadministradorSuscripcionCambioComponent, {
       width: "80%",
-      data: sub
+      data: materia
     }).afterClosed().subscribe(result => {
       this._obtenerSuscripciones()
     })
@@ -72,26 +63,28 @@ export class SuperadministradorSuscripcionComponent implements OnInit {
   private _filter(value: string) {
     const filterValue = value.toLowerCase();
 
-    const valoresFiltrados = this.suscripciones.filter(option => {
+    const valoresFiltrados = this.materias.filter(option => {
       return (
-        option._idEmpresa.nombre.toLowerCase().includes(filterValue)
+        option.nombre.toLowerCase().includes(filterValue) ||
+        option.codigoMateria.toLowerCase().includes(filterValue) ||
+        option.escolaridad.toLowerCase().includes(filterValue) 
       );
     });
     if (!this.buscadorForm.value) {
-      this.dataSource = this.suscripciones;
+      this.dataSource = this.materias;
     } else {
       this.dataSource = valoresFiltrados;
     }
   }
-  public obtenerIndiceTabla(sub: Suscripcion): number {
-    return this.suscripciones.indexOf(sub);
+  public obtenerIndiceTabla(materia: Materia): number {
+    return this.materias.indexOf(materia);
   }
   private _obtenerSuscripciones() {
     return new Promise((resolve, reject) => {
-      this._servicioSuscripcion.obtenerListaSuscripciones().subscribe(
-        (subs: Suscripcion[]) => {
-          this.dataSource = subs;
-          this.suscripciones = subs;
+      this._serMaterias.obtenerMaterias().subscribe(
+        (materias: Materia[]) => {
+          this.dataSource = materias;
+          this.materias = materias;
           resolve(null);
         }, (err: HttpErrorResponse) => {
           reject();
@@ -99,10 +92,10 @@ export class SuperadministradorSuscripcionComponent implements OnInit {
       )
     })
   }
-  public modificarEstadoPagoSuscripcion(sub: Suscripcion) {
-    sub.estadoPago = !sub.estadoPago;
+  public modificarEstadoPagoSuscripcion(materia: Materia) {
+    materia.activo = !materia.activo;
     return new Promise((resolve, reject) => {
-      this._servicioSuscripcion.editarSuscripcion(sub).subscribe(
+      this._serMaterias.editarMateria(materia).subscribe(
         (sub: any) => {
           this._obtenerSuscripciones();
           resolve(null);
@@ -112,30 +105,30 @@ export class SuperadministradorSuscripcionComponent implements OnInit {
       )
     })
   } 
-  exportToExcel() {
-    let arr = [];
-    this.suscripciones.forEach(sub=>{
-      let ob = {
-        Identificador: sub._id,
-        "Fecha de Inicio" : moment(sub.fechaInicio).format('DD/MM/YYYY'),
-        "Fecha Final" : moment(sub.fechaFinal).format('DD/MM/YYYY'),
-        "Tipo de Suscripción" : (sub.tipo ? "Mensual" : "Anual"),
-        "Estado de Suscripción": (sub.estadoPago ? "Pagado" : "Sin Pagar"),
-        "Empresa" : sub._idEmpresa.nombre
-      }
-      arr.push(ob);
-    })
+  // exportToExcel() {
+  //   let arr = [];
+  //   this.materias.forEach(sub=>{
+  //     let ob = {
+  //       Identificador: sub._id,
+  //       "Fecha de Inicio" : moment(sub.fechaInicio).format('DD/MM/YYYY'),
+  //       "Fecha Final" : moment(sub.fechaFinal).format('DD/MM/YYYY'),
+  //       "Tipo de Suscripción" : (sub.tipo ? "Mensual" : "Anual"),
+  //       "Estado de Suscripción": (sub.estadoPago ? "Pagado" : "Sin Pagar"),
+  //       "Empresa" : sub._idEmpresa.nombre
+  //     }
+  //     arr.push(ob);
+  //   })
 
-    arr.forEach((row: any) => {
-      this.dataForExcel.push(Object.values(row))
-    })
+  //   arr.forEach((row: any) => {
+  //     this.dataForExcel.push(Object.values(row))
+  //   })
 
-    let reportData = {
-      title: 'Suscripciones Empresas - 2021',
-      data: this.dataForExcel,
-      headers: Object.keys(arr[0])
-    }
+  //   let reportData = {
+  //     title: 'Suscripciones Empresas - 2021',
+  //     data: this.dataForExcel,
+  //     headers: Object.keys(arr[0])
+  //   }
 
-    this.ete.exportExcel(reportData);
-  }
+  //   this.ete.exportExcel(reportData);
+  // }
 }

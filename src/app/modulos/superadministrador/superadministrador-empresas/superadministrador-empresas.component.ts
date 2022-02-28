@@ -8,12 +8,13 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { SuperadministradorOtrosAltaComponent } from '../superadminsitrador-otros/superadministrador-otros-alta/superadministrador-otros-alta.component';
 import { SuperadministradorOtrosCambioComponent } from '../superadminsitrador-otros/superadministrador-otros-cambio/superadministrador-otros-cambio.component';
-import { EmpresaService } from 'src/app/servicios/empresa/empresa.service';
 import { SuperadministradorEmpresasAltaComponent } from './superadministrador-empresas-alta/superadministrador-empresas-alta.component';
-import { Empresa } from 'src/app/modelos/empresa.model';
 import { SuperadministradorEmpresasUbicacionesComponent } from './superadministrador-empresas-ubicaciones/superadministrador-empresas-ubicaciones.component';
 import { ExportExcelService } from 'src/app/servicios/excel/export-excel.service';
 import * as moment from 'moment';
+import { Profesor } from 'src/app/modelos/profesor.model';
+import { ProfesorService } from 'src/app/servicios/escuela/profesor.service';
+import { SuperadministradorEmpresasCambioComponent } from './superadministrador-empresas-cambio/superadministrador-empresas-cambio.component';
 @Component({
   selector: 'app-superadministrador-empresas',
   templateUrl: './superadministrador-empresas.component.html',
@@ -21,22 +22,22 @@ import * as moment from 'moment';
 })
 
 export class SuperadministradorEmpresasComponent implements OnInit {
-  empresas: Empresa[];
+  profesores: Profesor[];
   nombre: string;
   dataForExcel = [];
 
   buscadorForm: FormControl;
   isLoading: boolean = false;
   i: number = 0;
-  columnas: string[] = ["No.", 'Nombre', 'Estatus', "Direcciones", "Opciones"];
-  dataSource: Empresa[];
+  columnas: string[] = ["No.", 'Nombre', 'Apellido Paterno', "Apellido Materno", "rfc", "Estatus", "Opciones"];
+  dataSource: Profesor[];
   constructor(
-    private _serEmpresas: EmpresaService,
+    private _serProfesores: ProfesorService,
     private _formBuilder: FormBuilder,
     public ete: ExportExcelService,
     public dialog: MatDialog
   ) {
-    this.empresas = [];
+    this.profesores = [];
     this.dataSource = [];
   }
 
@@ -61,14 +62,22 @@ export class SuperadministradorEmpresasComponent implements OnInit {
       this._obtenerEmpresas()
     })
   }
-  public abrirUbicaciones(empresa: Empresa) {
-    const dialog = this.dialog.open(SuperadministradorEmpresasUbicacionesComponent, {
+  public editarEmpresa(data: Profesor) {
+    const dialog = this.dialog.open(SuperadministradorEmpresasCambioComponent, {
       width: "80%",
-      data: empresa.ubicaciones
+      data: data,
     }).afterClosed().subscribe(result => {
       this._obtenerEmpresas()
     })
   }
+  // public abrirUbicaciones(empresa: Profesor) {
+  //   const dialog = this.dialog.open(SuperadministradorEmpresasUbicacionesComponent, {
+  //     width: "80%",
+  //     data: empresa.ubicaciones
+  //   }).afterClosed().subscribe(result => {
+  //     this._obtenerEmpresas()
+  //   })
+  // }
   // public modificarSuperAdministrador(admin: Superadministrador) {
   //   const dialog = this.dialog.open(SuperadministradorOtrosCambioComponent, {
   //     width: "80%",
@@ -81,24 +90,24 @@ export class SuperadministradorEmpresasComponent implements OnInit {
   private _filter(value: string) {
     const filterValue = value.toLowerCase();
 
-    const valoresFiltrados = this.empresas.filter(option => {
+    const valoresFiltrados = this.profesores.filter(option => {
       return (option.nombre.toLowerCase().includes(filterValue));
     });
     if (!this.buscadorForm.value) {
-      this.dataSource = this.empresas;
+      this.dataSource = this.profesores;
     } else {
       this.dataSource = valoresFiltrados;
     }
   }
-  public obtenerIndiceTabla(empresa: Empresa): number {
-    return this.empresas.indexOf(empresa);
+  public obtenerIndiceTabla(profesor: Profesor): number {
+    return this.profesores.indexOf(profesor);
   }
   private _obtenerEmpresas() {
     return new Promise((resolve, reject) => {
-      this._serEmpresas.obtenerListaEmpresas().subscribe(
-        (empresas: Empresa[]) => {
-          this.dataSource = empresas;
-          this.empresas = empresas;
+      this._serProfesores.obtenerProfesores().subscribe(
+        (profesores: Profesor[]) => {
+          this.dataSource = profesores;
+          this.profesores = profesores;
           resolve(null);
         }, (err: HttpErrorResponse) => {
           reject();
@@ -106,13 +115,13 @@ export class SuperadministradorEmpresasComponent implements OnInit {
       )
     })
   }
-  public eliminarEmpresa(empresa: Empresa) {
-    const index = this.dataSource.indexOf(empresa);
-    if (index > -1) {
-      this.dataSource.splice(index, 1);
-    }
+  public eliminarProfesor(profesor: Profesor) {
+    const index = this.dataSource.indexOf(profesor);
+    // if (index > -1) {
+    //   this.dataSource.splice(index, 1);
+    // }
     return new Promise((resolve, reject) => {
-      this._serEmpresas.eliminarEmpresa(empresa).subscribe(
+      this._serProfesores.eliminarProfesor(profesor).subscribe(
         (superadmins: any) => {
           this._obtenerEmpresas();
           resolve(null);
@@ -122,14 +131,14 @@ export class SuperadministradorEmpresasComponent implements OnInit {
       )
     })
   }
-  public reactivarEmpresa(empresa: Empresa) {
-    const index = this.dataSource.indexOf(empresa);
-    if (index > -1) {
-      this.dataSource.splice(index, 1);
-    }
-    empresa.estatus = true;
+  public reactivarProfesor(profesor: Profesor) {
+    const index = this.dataSource.indexOf(profesor);
+    // if (index > -1) {
+    //   this.dataSource.splice(index, 1);
+    // }
+    profesor.activo = true;
     return new Promise((resolve, reject) => {
-      this._serEmpresas.editarEmpresa(empresa).subscribe(
+      this._serProfesores.editarProfesor(profesor).subscribe(
         (superadmins: any) => {
           this._obtenerEmpresas();
           resolve(null);
@@ -152,31 +161,31 @@ export class SuperadministradorEmpresasComponent implements OnInit {
   //     )
   //   })
   // }
-  exportToExcel() {
-    let arr = [];
-    this.empresas.forEach(sub => {
-      let ob = {
-        Identificador: sub._id,
-        "Nombre": sub.nombre,
-        "Estatus": sub.estatus ? "Activa" : "Inactiva",
-        "Código Postal": sub.ubicaciones[0]._idCodigoPostal.c_CodigoPostal,
-        "Calle": sub.ubicaciones[0].calle,
-        "No. Exterior": sub.ubicaciones[0].numeroExterior,
-        "No. Interior": sub.ubicaciones[0].numeroInterior ? sub.ubicaciones[0].numeroInterior : ""
-      }
-      arr.push(ob);
-    })
+  // exportToExcel() {
+  //   let arr = [];
+  //   this.profesores.forEach(sub => {
+  //     let ob = {
+  //       Identificador: sub._id,
+  //       "Nombre": sub.nombre,
+  //       "Estatus": sub.estatus ? "Activa" : "Inactiva",
+  //       "Código Postal": sub.ubicaciones[0]._idCodigoPostal.c_CodigoPostal,
+  //       "Calle": sub.ubicaciones[0].calle,
+  //       "No. Exterior": sub.ubicaciones[0].numeroExterior,
+  //       "No. Interior": sub.ubicaciones[0].numeroInterior ? sub.ubicaciones[0].numeroInterior : ""
+  //     }
+  //     arr.push(ob);
+  //   })
 
-    arr.forEach((row: any) => {
-      this.dataForExcel.push(Object.values(row))
-    })
+  //   arr.forEach((row: any) => {
+  //     this.dataForExcel.push(Object.values(row))
+  //   })
 
-    let reportData = {
-      title: `Empresas - ${moment(Date.now()).format("DD/MM/YYYY")}`,
-      data: this.dataForExcel,
-      headers: Object.keys(arr[0])
-    }
+  //   let reportData = {
+  //     title: `Empresas - ${moment(Date.now()).format("DD/MM/YYYY")}`,
+  //     data: this.dataForExcel,
+  //     headers: Object.keys(arr[0])
+  //   }
 
-    this.ete.exportExcel(reportData);
-  }
+  //   this.ete.exportExcel(reportData);
+  // }
 }

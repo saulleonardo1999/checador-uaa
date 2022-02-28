@@ -2,11 +2,14 @@ import  express from 'express';
 import  http from 'http';
 import { OPCIONES, PUERTO_SERVIDOR } from '../config/globales';
 import administrdorRutas from './componentes/rutas/administrador';
+import alumnoRutas from './componentes/rutas/alumno.route';
 import autenticacionRutas from './componentes/rutas/autenticacion';
 import empleadoRutas from './componentes/rutas/empleado';
 import empresaRutas from './componentes/rutas/empresa';
 import horarioRutas from './componentes/rutas/horario';
 import horarioTrabajadoRutas from './componentes/rutas/horarioTrabajado';
+import materiaRutas from './componentes/rutas/materia.route';
+import profesorRutas from './componentes/rutas/profesor.route';
 import registroEntradaRutas from './componentes/rutas/registroEntrada';
 import registroSalidaRutas from './componentes/rutas/registroSalida';
 import superadministrdorRutas from './componentes/rutas/superadministrador';
@@ -41,6 +44,9 @@ export default class Servidor {
         this.app.use('/api/v1/registro-entrada', registroEntradaRutas);
         this.app.use('/api/v1/registro-salida', registroSalidaRutas);
         this.app.use('/api/v1/horario-trabajado', horarioTrabajadoRutas);
+        this.app.use('/api/v1/profesor', profesorRutas);
+        this.app.use('/api/v1/alumno', alumnoRutas);
+        this.app.use('/api/v1/materia', materiaRutas);
     }
     public async inicializarServidor(){
         this.inicializarRutas();

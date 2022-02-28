@@ -2,8 +2,9 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { Administrador } from 'src/app/modelos/administrador.model';
-import { AdministradorService } from 'src/app/servicios/administrador/administrador.service';
+import { escolaridades } from 'src/app/globales/escolaridades';
+import { Alumno } from 'src/app/modelos/alumno.model';
+import { AlumnoService } from 'src/app/servicios/escuela/alumno.service';
 import { SuperadministradorAdministradoresAltaComponent } from './superadministrador-administradores-alta/superadministrador-administradores-alta.component';
 import { SuperadministradorAdministradoresCambioComponent } from './superadministrador-administradores-cambio/superadministrador-administradores-cambio.component';
 
@@ -13,24 +14,24 @@ import { SuperadministradorAdministradoresCambioComponent } from './superadminis
   styleUrls: ['./superadministrador-administradores.component.scss']
 })
 export class SuperadministradorAdministradoresComponent implements OnInit {
-  administradores: Administrador[];
+  alumnos: Alumno[];
   nombre: string;
   buscadorForm: FormControl;
   isLoading: boolean = false;
   i: number = 0;
-  columnas: string[] = ["No.", 'Nombre', 'Apellido Materno', "Apellido Paterno", 'Correo', 'Empresa', "Opciones"];
-  dataSource: Administrador[];
+  columnas: string[] = ["No.", 'Nombre', 'Apellido Materno', "Apellido Paterno", 'Escolaridad', 'Fecha de Nacimiento', 'Estatus', "Opciones"];
+  dataSource: Alumno[];
   constructor(
-    private _serAdministradores: AdministradorService,
+    private _serAlumnos: AlumnoService,
     private _formBuilder: FormBuilder,
     public dialog: MatDialog
   ) {
-    this.administradores = [];
+    this.alumnos = [];
     this.dataSource = [];
   }
 
   ngOnInit(): void {
-    this._obtenerAdministradores();
+    this._obtenerAlumnos();
     this._iniciarFormBuilder();
     this._iniciarSubscriberFormBuilder();
 
@@ -47,46 +48,44 @@ export class SuperadministradorAdministradoresComponent implements OnInit {
     const dialog = this.dialog.open(SuperadministradorAdministradoresAltaComponent, {
       width: "80%"
     }).afterClosed().subscribe(result => {
-      this._obtenerAdministradores()
+      this._obtenerAlumnos()
     })
   }
-  public modificarAdministrador(admin:Administrador) {
+  public modificarAdministrador(alumno:Alumno) {
     const dialog = this.dialog.open(SuperadministradorAdministradoresCambioComponent, {
       width: "80%",
-      data: admin
+      data: alumno
     }).afterClosed().subscribe(result => {
-      this._obtenerAdministradores()
+      this._obtenerAlumnos()
     })
   }
 
   private _filter(value: string) {
     const filterValue = value.toLowerCase();
 
-    const valoresFiltrados = this.administradores.filter(option => {
+    const valoresFiltrados = this.alumnos.filter(option => {
       return (
         option.nombre.toLowerCase().includes(filterValue) ||
         option.apellidoMaterno.toLowerCase().includes(filterValue) ||
-        option.apellidoPaterno.toLowerCase().includes(filterValue) ||
-        option.correo.toLowerCase().includes(filterValue) ||
-        option._idEmpresa.nombre.toLowerCase().includes(filterValue) 
+        option.apellidoPaterno.toLowerCase().includes(filterValue) 
       );
     });
     if (!this.buscadorForm.value) {
-      this.dataSource = this.administradores;
+      this.dataSource = this.alumnos;
     } else {
       this.dataSource = valoresFiltrados;
     }
   }
-  public obtenerIndiceTabla(superadmin: Administrador): number {
-    return this.administradores.indexOf(superadmin);
+  public obtenerIndiceTabla(alumno: Alumno): number {
+    return this.alumnos.indexOf(alumno);
   }
-  private _obtenerAdministradores() {
+  private _obtenerAlumnos() {
     return new Promise((resolve, reject) => {
-      this._serAdministradores.obtenerListaAdministradores().subscribe(
-        (admins: Administrador[]) => {
-          console.log(admins);
-          this.dataSource = admins;
-          this.administradores = admins;
+      this._serAlumnos.obtenerAlumnos().subscribe(
+        (alumnos: Alumno[]) => {
+          console.log(alumnos);
+          this.dataSource = alumnos;
+          this.alumnos = alumnos;
           resolve(null);
         }, (err: HttpErrorResponse) => {
           reject();
@@ -94,12 +93,12 @@ export class SuperadministradorAdministradoresComponent implements OnInit {
       )
     })
   }
-  public activarDesactivarAdministrador(admin: Administrador) {
-    admin.estatus = !admin.estatus;
+  public activarDesactivarAdministrador(alumno: Alumno) {
+    alumno.activo = !alumno.activo;
     return new Promise((resolve, reject) => {
-      this._serAdministradores.editarAdministrador(admin).subscribe(
+      this._serAlumnos.editarAlumno(alumno).subscribe(
         (superadmins: any) => {
-          this._obtenerAdministradores();
+          this._obtenerAlumnos();
           resolve(null);
         }, (err: HttpErrorResponse) => {
           console.log(err);

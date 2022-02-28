@@ -1,28 +1,31 @@
 import { Component, OnInit } from '@angular/core';
-
 @Component({
   selector: 'app-superadministrador-drawer',
   templateUrl: './superadministrador-drawer.component.html',
   styleUrls: ['./superadministrador-drawer.component.scss']
 })
 export class SuperadministradorDrawerComponent implements OnInit {
-  componenteActual:string= "Superadministrador";
+  componenteActual:string= "Administrador del Sistema";
   links = [
     {
-      name: "Empresas",
-      url: "empresas"
+      name: "Profesores",
+      url: "empresas",
+      icon: "supervisor_account"
     },
     {
-      name: "Administradores",
-      url: "administradores"
+      name: "Alumnos",
+      url: "administradores",
+      icon: "escalator_warning"
     },
     {
-      name: "Suscripción",
-      url: "suscripcion"
+      name: "Materias",
+      url: "suscripcion",
+      icon: "border_color"
     },
     {
-      name: "Otros",
-      url: "otros"
+      name: "Superadministradores",
+      url: "otros",
+      icon: "groups"
     }
   ]
   constructor() { }

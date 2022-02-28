@@ -15,12 +15,14 @@ export class AutenticacionService {
       correo: correo,
       password: password
     }
-    return this.httpClient.post(AjustesAplicacion.APIEndpoint + 'autenticacion/superadministrador', credenciales, AjustesAplicacion.Opciones).pipe(
-      map((result: any) => {
-        if(result)
-          this.guardarToken(result["token"])
-      })
-    );
+    try{
+      return this.httpClient.post(AjustesAplicacion.APIEndpoint + 'autenticacion/superadministrador', credenciales, AjustesAplicacion.Opciones).pipe(
+        map((result: any) => {
+          if(result)
+            this.guardarToken(result["token"])
+        })
+      );
+    }catch(err){}
   }
   public iniciarSesionAdministrador(correo:string, password:string): Observable<any> {
     const credenciales = {

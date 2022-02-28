@@ -23,9 +23,11 @@ export let obtenerInicioSesionEmpleado = (req: Request, res: Response) => {
 async function _obtenerIncioSesionSuperAdministrador(req: Request, res: Response) {
   const correo = String(req.body.correo);
   const password = String(req.body.password);
-  SuperAdministrador
+  try{
+    SuperAdministrador
     .findOne({ correo: correo })
     .exec(async (err, admin) => {
+      console.log("BACKEND", err, admin);
       if (err) {
         res.status(422).json({ Titulo: "Error del servidor" , Descripción: "Intente más tarde" })
       }
@@ -42,10 +44,16 @@ async function _obtenerIncioSesionSuperAdministrador(req: Request, res: Response
           res.status(403).json({ Titulo: "Inicio de sesión Fallida", Descripción: "Tus credenciales son inválidas" })
         }
 
-      } else {
-        res.status(422).json({ Titulo: "Error del servidor intente mas tarde", Descripción: "Intente más tarde" })
+      }else{
+        console.log("hola mundo");
+        res.status(404).json({ Titulo: "Error en la autenticación", Descripción: "No existe el usuario registrado" })
       }
-    });
+    })
+  }catch(err){
+    console.log(err);
+    res.status(422).json({ Titulo: "Error del servidor intente mas tarde", Descripción: "Intente más tarde" })
+
+  }
 }
 async function _obtenerIncioSesionAdministrador(req: Request, res: Response) {
   const correo = String(req.body.correo);

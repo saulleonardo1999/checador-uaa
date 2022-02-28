@@ -1,24 +1,88 @@
 <mat-sidenav-container class="example-container">
   <mat-sidenav #sidenav mode="side" class="sidenav">
-    <mat-toolbar class="toolbar">Superadministrador</mat-toolbar>
+    <mat-toolbar class="toolbar">
+      <div [align]="'center'">
+        <img class="w-50" src="../../../../assets/check-in_logo.png" />
+      </div>
+    </mat-toolbar>
+    <div style="margin-top: 10px"></div>
     <mat-list>
-      <mat-list-item *ngFor="let item of links">
-        <a matLine [routerLink]="item.url">{{ item.name }}</a>
-      </mat-list-item>
+      <div *ngFor="let item of links">
+        <div class="row mx-2">
+          <div class="col-12">
+            <div class="row">
+              <div class="col-2">
+                <a
+                  style="
+                    color: white;
+                    text-decoration-line: none;
+                    font-size: x-large;
+                  "
+                  [routerLink]="item.url"
+                >
+                  <mat-icon
+                    class="m-2"
+                    aria-hidden="false"
+                    aria-label="Example home icon"
+                    style="cursor: pointer; color: white"
+                    (click)="sidenav.toggle()"
+                    >{{item.icon}}</mat-icon
+                  >
+                </a>
+              </div>
+              <div class="col-10">
+                <a
+                  style="
+                    color: white;
+                    text-decoration-line: none;
+                    font-size: medium;
+                  "
+                  [routerLink]="item.url"
+                >
+                  <b>{{ item.name }}</b>
+                </a>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12 linea w-100"></div>
+            </div>
+          </div>
+        </div>
+      </div>
     </mat-list>
   </mat-sidenav>
 
   <mat-sidenav-content>
-    <mat-toolbar color="accent">
+    <mat-toolbar color="warn">
       <mat-toolbar-row>
-        <mat-icon
-          class="m-2"
-          aria-hidden="false"
-          aria-label="Example home icon"
-          (click)="sidenav.toggle()"
-          >menu</mat-icon
-        >
-        <span class="m-6">{{ componenteActual }}</span>
+        <div>
+          <mat-icon
+            class="m-2"
+            aria-hidden="false"
+            aria-label="Example home icon"
+            style="cursor: pointer"
+            (click)="sidenav.toggle()"
+            >menu</mat-icon
+          >
+        </div>
+        <div>
+          <span class="m-6">
+            <b> {{ componenteActual }}</b></span
+          >
+        </div>
+        <span class="flexExpand"></span>
+        <div>
+          <a [routerLink]="'/login/superadministrador'">
+            <mat-icon
+              class="m-2"
+              aria-hidden="false"
+              aria-label="Example home icon"
+              style="cursor: pointer; color: white"
+              (click)="sidenav.toggle()"
+              >logout</mat-icon
+            >
+          </a>
+        </div>
       </mat-toolbar-row>
     </mat-toolbar>
     <router-outlet></router-outlet>

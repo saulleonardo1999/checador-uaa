@@ -1,96 +1,71 @@
 <div mat-dialog-content>
-    <br />
-    <div [formGroup]="datosForm">
-      <div class="container-fluid">
-        <div class="row mt-1 justify-content-around">
-          <div class="col-lg-6 col-sm-6">
-            <mat-form-field class="w-100" appearance="legacy">
-              <mat-label>Fecha de Inicio de la Suscripción</mat-label>
-              <input
-                matInput
-                placeholder="Ingresa la fecha final de la suscripción"
-                readonly
-                [matDatepicker]="fechaInicioPicker"
-                formControlName="fechaInicio"
-              />
-              <mat-datepicker-toggle
-                matSuffix
-                [for]="fechaInicioPicker"
-              ></mat-datepicker-toggle>
-              <mat-datepicker #fechaInicioPicker></mat-datepicker>
-            </mat-form-field>
-          </div>
-          <div class="col-lg-6 col-sm-6">
-            <mat-form-field class="w-100" appearance="legacy">
-              <mat-label>Fecha final de la suscripción</mat-label>
-              <input
-                matInput
-                placeholder="Ingresa la fecha de inicio de la suscripción"
-                readonly
-                [matDatepicker]="fechaFinalPicker"
-                formControlName="fechaFinal"
-              />
-              <mat-datepicker-toggle
-                matSuffix
-                [for]="fechaFinalPicker"
-              ></mat-datepicker-toggle>
-              <mat-datepicker #fechaFinalPicker></mat-datepicker>
-            </mat-form-field>
-          </div>
-        </div>
-        <div class="row mt-1 justify-content-around">
-          <div class="col-lg-6 col-sm-6">
-            <mat-form-field class="w-100" appearance="legacy">
-              <mat-label>Empresa</mat-label>
-              <mat-select formControlName="_idEmpresa" required>
-                <mat-option *ngFor="let empresa of empresas" [value]="empresa"
-                  >{{ empresa.nombre }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-  
-          <div class="col-lg-6 col-sm-6">
-            <mat-form-field class="w-100" appearance="legacy">
-              <mat-label>Tipo de Suscripción</mat-label>
-              <mat-select formControlName="tipo" required>
-                <mat-option [value]="TipoSuscripcion.Anual"> Anual </mat-option>
-                <mat-option [value]="TipoSuscripcion.Mensual">
-                  Mensual
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-        </div>
-      </div>
-    </div>
-    <br />
-    <br />
-  </div>
-  <div mat-dialog-actions>
+  <br />
+  <div [formGroup]="datosForm">
     <div class="container-fluid">
       <div class="row mt-1 justify-content-around">
-        <div class="col-lg-4 col-sm-6">
-          <button
-            mat-raised-button
-            class="btn-block btn-danger mb-1"
-            (click)="onDismiss()"
-          >
-            <mat-icon>clear</mat-icon>
-            Cancelar
-          </button>
+        <div class="col-lg-6 col-sm-6">
+          <mat-form-field class="w-100" appearance="legacy">
+            <mat-label>Nombre</mat-label>
+            <input
+              matInput
+              placeholder="Ingresa el nombre"
+              formControlName="nombre"
+              required
+            />
+          </mat-form-field>
         </div>
-        <div class="col-lg-4 col-sm-6">
-          <button
-            mat-raised-button
-            class="btn-block btn-success mb-1"
-            (click)="editarSuscripcion()"
-          >
-            <mat-icon>add</mat-icon>
-            Guardar
-          </button>
+        <div class="col-lg-6 col-sm-6">
+          <mat-form-field class="w-100" appearance="legacy">
+            <mat-label>Escolaridad</mat-label>
+            <mat-select formControlName="escolaridad" required>
+              <mat-option *ngFor="let escolaridad of escolaridades" [value]="escolaridad"
+                >{{ escolaridad}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row mt-1 justify-content-around">
+        <div class="col-lg-12 col-sm-12">
+          <mat-form-field class="w-100" appearance="legacy">
+            <mat-label>Código de Materia</mat-label>
+            <input
+              matInput
+              placeholder="Ingresa el código de Materia"
+              formControlName="codigoMateria"
+              required
+            />
+          </mat-form-field>
         </div>
       </div>
     </div>
   </div>
-  
+  <br />
+  <br />
+</div>
+<div mat-dialog-actions>
+  <div class="container-fluid">
+    <div class="row mt-1 justify-content-around">
+      <div class="col-lg-4 col-sm-6">
+        <button
+          mat-raised-button
+          class="btn-block btn-danger mb-1"
+          (click)="onDismiss()"
+        >
+          <mat-icon>clear</mat-icon>
+          Cancelar
+        </button>
+      </div>
+      <div class="col-lg-4 col-sm-6">
+        <button
+          mat-raised-button
+          class="btn-block btn-success mb-1"
+          (click)="editarSuscripcion()"
+        >
+          <mat-icon>add</mat-icon>
+          Guardar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

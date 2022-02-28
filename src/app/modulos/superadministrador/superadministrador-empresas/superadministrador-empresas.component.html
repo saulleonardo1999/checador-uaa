@@ -1,9 +1,9 @@
 <div class="mt-5" align="center">
   <div class="w-75">
       <div class="row mt-1 justify-content-between align-items-end">
-        <div class="col-8">
+        <div class="col-12">
           <mat-form-field appearance="legacy" class="w-100">
-            <mat-label>Buscar Empresas</mat-label>
+            <mat-label>Buscar...</mat-label>
             <input
               matInput
               type="text"
@@ -14,10 +14,12 @@
 
           </mat-form-field>
         </div>
-        <div class="col-3 mb-3">
+      </div>
+      <div class="row mt-1 justify-content-between align-items-end">
+        <div class="col-12 mb-3">
           <button class="w-100 btn-success" (click)="agregarEmpresa()" mat-raised-button>
-            <span>Agregar</span>
             <mat-icon>add</mat-icon>
+            <span> <b>Agregar Nuevo Profesor</b> </span>
           </button>
         </div>
       </div>
@@ -43,13 +45,31 @@
     <td mat-cell *matCellDef="let element">{{ element.nombre }}</td>
   </ng-container>
 
-  <!-- Apellido Materno -->
-  <ng-container matColumnDef="Estatus">
-    <th mat-header-cell *matHeaderCellDef>Estatus</th>
-    <td mat-cell *matCellDef="let element">{{ element.estatus ? "Activa" : "Inactiva" }}</td>
+  <!-- Apellido Paterno -->
+  <ng-container matColumnDef="Apellido Paterno">
+    <th mat-header-cell *matHeaderCellDef>Apellido Paterno</th>
+    <td mat-cell *matCellDef="let element">{{ element.apellidoPaterno }}</td>
   </ng-container>
 
-  <!-- Apellido Paterno -->
+  <!-- Apellido materno -->
+  <ng-container matColumnDef="Apellido Materno">
+    <th mat-header-cell *matHeaderCellDef>Apellido Paterno</th>
+    <td mat-cell *matCellDef="let element">{{ element.apellidoMaterno }}</td>
+  </ng-container>
+
+  <!-- rfc -->
+  <ng-container matColumnDef="rfc">
+    <th mat-header-cell *matHeaderCellDef>RFC</th>
+    <td mat-cell *matCellDef="let element">{{ element.rfc }}</td>
+  </ng-container>
+
+  <!-- ESTATUS -->
+  <ng-container matColumnDef="Estatus">
+    <th mat-header-cell *matHeaderCellDef>Estatus</th>
+    <td mat-cell *matCellDef="let element">{{ element.activo ? "Activa" : "Inactiva" }}</td>
+  </ng-container>
+
+  <!-- Apellido Paterno
   <ng-container matColumnDef="Direcciones">
     <th mat-header-cell *matHeaderCellDef>Direcciones</th>
     <td mat-cell *matCellDef="let element">
@@ -67,7 +87,7 @@
         </div>
       </div>
     </td>
-  </ng-container>
+  </ng-container> -->
 
   <!-- Botones opciones -->
   <ng-container matColumnDef="Opciones">
@@ -76,11 +96,19 @@
       <div class="container-fluid">
         <div class="row justify-content-start">
           <button
+              color=""
+              class="btn btn-primary m-2"
+              mat-mini-fab
+              (click)="editarEmpresa(element)"
+            >
+              <mat-icon>edit</mat-icon>
+            </button>
+          <button
             mat-mini-fab
             class="btn btn-success m-2"
             color=""
-            (click)="reactivarEmpresa(element)"
-            *ngIf="!element.estatus"
+            (click)="reactivarProfesor(element)"
+            *ngIf="!element.activo"
           >
             <mat-icon>published_with_changes</mat-icon>
           </button>
@@ -88,8 +116,8 @@
             mat-mini-fab
             class="m-2"
             color="warn"
-            (click)="eliminarEmpresa(element)"
-            *ngIf="element.estatus"
+            (click)="eliminarProfesor(element)"
+            *ngIf="element.activo"
           >
             <mat-icon>delete_forever</mat-icon>
           </button>
@@ -101,7 +129,7 @@
   <tr mat-header-row *matHeaderRowDef="columnas"></tr>
   <tr mat-row *matRowDef="let row; columns: columnas"></tr>
 </table>
-<div class="w-75">
+<!-- <div class="w-75">
   <div class="row mt-1 justify-content-between align-items-end">
     
     <div class="col-12 mb-3">
@@ -115,5 +143,5 @@
       </button>
     </div>
   </div>
-</div>
+</div> -->
 </div>

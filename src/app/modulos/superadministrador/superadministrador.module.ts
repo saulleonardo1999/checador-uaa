@@ -34,8 +34,10 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { ChartsModule } from 'ng2-charts';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { SuperadministradorEmpresasCambioComponent } from './superadministrador-empresas/superadministrador-empresas-cambio/superadministrador-empresas-cambio.component';
+import { TituloModalModule } from 'src/app/globales/titulo-modal/titulo-modal.module';
 @NgModule({
-  declarations: [SuperadministradorDrawerComponent, SuperadminsitradorOtrosComponent, SuperadministradorOtrosAltaComponent, SuperadministradorOtrosCambioComponent, SuperadministradorEmpresasComponent, SuperadministradorEmpresasAltaComponent, SuperadministradorEmpresasUbicacionesComponent, SuperadministradorAdministradoresComponent, SuperadministradorAdministradoresAltaComponent, SuperadministradorAdministradoresCambioComponent, SuperadministradorSuscripcionComponent, SuperadministradorSuscripcionAltaComponent, SuperadministradorSuscripcionCambioComponent],
+  declarations: [SuperadministradorDrawerComponent, SuperadminsitradorOtrosComponent, SuperadministradorOtrosAltaComponent, SuperadministradorOtrosCambioComponent, SuperadministradorEmpresasComponent, SuperadministradorEmpresasAltaComponent, SuperadministradorEmpresasUbicacionesComponent, SuperadministradorAdministradoresComponent, SuperadministradorAdministradoresAltaComponent, SuperadministradorAdministradoresCambioComponent, SuperadministradorSuscripcionComponent, SuperadministradorSuscripcionAltaComponent, SuperadministradorSuscripcionCambioComponent, SuperadministradorEmpresasCambioComponent],
   imports: [
     NgxChartsModule,
     CommonModule,
@@ -50,6 +52,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
     MatDatepickerModule,
     MatSidenavModule,
     MatMenuModule,
+    TituloModalModule,
     MatTableModule,
     MatInputModule,
     MatFormFieldModule,
